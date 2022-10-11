@@ -19,21 +19,59 @@ class _MyAppState extends State<MyApp> {
     mapController = controller;
   }
 
+  void _teleportRandom() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+    });
+  }
+
+  void _teleportHome() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Maps Sample App'),
+          title: const Text('Map Project'),
           backgroundColor: Colors.orange[700],
         ),
-        body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 12.0,
+        body: Stack(children: <Widget>[
+          GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 12.0,
+            ),
           ),
-        ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: FloatingActionButton.extended(
+              label: const Text('Teleport me to somewhere random'),
+              onPressed: _teleportRandom,
+              tooltip: 'Teleport me to somewhere random',
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton.extended(
+              label: const Text('Bring me back home'),
+              onPressed: _teleportHome,
+              tooltip: 'Bring me back home',
+            ),
+          ),
+        ]),
       ),
     );
   }
