@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:math';
 
 void main() => runApp(const MyApp());
 
@@ -21,11 +22,17 @@ class _MyAppState extends State<MyApp> {
 
   void _teleportRandom() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
+      var random = Random();
+      double randomLat = -90 + random.nextDouble() * 90 * 2;
+      double randomLng = -180 + random.nextDouble() * 180 * 2;
+
+      mapController.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          bearing: 0,
+          target: LatLng(randomLat, randomLng),
+          zoom: 6.0,
+        ),
+      ));
     });
   }
 
